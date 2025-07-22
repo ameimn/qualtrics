@@ -17,14 +17,15 @@ def get_od():
         return Response(json.dumps({"error": "not found"}, ensure_ascii=False), mimetype="application/json")
     result = row.iloc[0]
     return Response(
-        json.dumps({
-            "home": result["O행정동명"],
-            "work": result["D행정동명"],
-            "time_pt": result["time_pt"],
-            "time_car": result["time_car"]
-        }, ensure_ascii=False),
-        mimetype="application/json"
-    )
+    json.dumps({
+        "home": str(result["O행정동명"]),
+        "work": str(result["D행정동명"]),
+        "time_pt": int(result["time_pt"]),   # int()로 감싸기
+        "time_car": int(result["time_car"])  # int()로 감싸기
+    }, ensure_ascii=False),
+    mimetype="application/json"
+)
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
